@@ -13,7 +13,6 @@ ad-unauthed $IP
 
 # Example
 ```bash
-
 ┌─[kali@parrot]─[~/hybrid]
 └──╼ $export IP='10.10.173.37'
 ┌─[kali@parrot]─[~/hybrid]
@@ -49,7 +48,6 @@ Version: v1.0.3 (9dad6e1) - 01/16/25 - Ronnie Flathers @ropnop
 2025/01/16 22:27:30 >  [+] VALID USERNAME:	 kathleen.walker@hybrid.vl
 2025/01/16 22:46:34 >  [+] VALID USERNAME:	 ricky.myers@hybrid.vl
 2025/01/16 22:53:51 >  Done! Tested 963050 usernames (11 valid) in 3056.946 seconds
-{🌀🌵[+]🌵🌀}Renamed kerb-users-01.txt to AD-Unauthed-10.10.173.37/AD-Unauthed-kerbrute-users-10.10.173.37.txt
 {🌀🌵[+]🌵🌀}Do you want to further enumerate with a specific wordlist? (Y/N):
 y
 {🌀🌵[+]🌵🌀}Select a wordlist:
