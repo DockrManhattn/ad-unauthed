@@ -96,7 +96,7 @@ def add_to_path():
     # Append the export statement and alias to the appropriate file
     with open(config_file, 'a') as file:
         file.write(f'\nexport PATH="$PATH:{path_to_add}"\n')
-        file.write(f'alias ad-unauthed="python3 /home/{get_current_user()}/.local/bin/ad-authed.py"\n')
+        file.write(f'alias ad-unauthed="python3 /home/{get_current_user()}/.local/bin/ad-unauthed.py"\n')
     print(f"Added to PATH and alias in {config_file}.")
 
     # Print the reminder message and the source command in colored format
