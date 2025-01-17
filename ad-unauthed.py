@@ -251,7 +251,7 @@ def main():
     response = input().strip().lower()
     if response in ['y', 'yes']:
         user = os.getenv('USER')
-        subprocess.run(["python3", "/home/{user}/.local/bin/kerbusers.py", "-d", domain, "-dc-ip", ip_address])
+        subprocess.run(["python3", f"/home/{user}/.local/bin/kerbusers.py", "-d", domain, "-dc-ip", ip_address])
 
         old_filename = "kerb-users-01.txt"
         new_filename = os.path.join(output_dir, f"AD-Unauthed-kerbrute-users-{ip_address}.txt")
