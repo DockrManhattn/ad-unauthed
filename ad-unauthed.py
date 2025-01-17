@@ -257,7 +257,6 @@ def main():
         new_filename = os.path.join(output_dir, f"AD-Unauthed-kerbrute-users-{ip_address}.txt")
         if os.path.exists(old_filename):
             os.rename(old_filename, new_filename)
-            print_informational(f"Renamed {old_filename} to {new_filename}")
         else:
             print_error(f"{new_filename} not found.")
 
