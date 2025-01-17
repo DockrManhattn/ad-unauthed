@@ -183,7 +183,7 @@ def run_kerbrute_with_wordlist(domain, ip_address, output_dir):
         return
 
     user = os.getenv('USER')
-    wordlist_path = f"/home/{user}/.local/bin/wordlists/statistically-likely-usernames/{selected_wordlist}"
+    wordlist_path = f"/home/{user}/.local/bin/wordlists/{selected_wordlist}"
     output_filename = os.path.join(output_dir, f"AD-Unauthed-kerbrute-{selected_wordlist_name}-{ip_address}.txt")
 
     command = [
