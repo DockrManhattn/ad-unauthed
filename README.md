@@ -81,3 +81,22 @@ Version: v1.0.3 (9dad6e1) - 01/16/25 - Ronnie Flathers @ropnop
 2025/01/16 22:54:30 >  Done! Tested 689 usernames (0 valid) in 0.977 seconds
 {🌀🌵[+]🌵🌀}Kerbrute enumeration completed. Results saved to AD-Unauthed-10.10.173.37/AD-Unauthed-kerbrute-test-accounts-10.10.173.37.txt
 ```
+
+```bash
+┌─[kali@parrot]─[~/hybrid]
+└──╼ $ls -lahR AD-Unauthed-10.10.173.37/
+AD-Unauthed-10.10.173.37/:
+total 24K
+drwxr-xr-x 1 kali kali  868 Jan 16 22:54 .
+drwxr-xr-x 1 kali kali   48 Jan 16 22:53 ..
+-rw-r--r-- 1 kali kali 1.2K Jan 16 22:02 AD-Unauthed-enum4linux-10.10.173.37.txt
+-rw-r--r-- 1 kali kali  492 Jan 16 22:54 AD-Unauthed-kerbrute-test-accounts-10.10.173.37.txt
+-rw-r--r-- 1 kali kali 1.4K Jan 16 22:53 AD-Unauthed-kerbrute-users-10.10.173.37.txt
+-rw-r--r-- 1 kali kali  346 Jan 16 22:02 AD-Unauthed-ldapsearch-base-10.10.173.37.txt
+-rw-r--r-- 1 kali kali    0 Jan 16 22:02 AD-Unauthed-ldapsearch-description-10.10.173.37.txt
+-rw-r--r-- 1 kali kali    0 Jan 16 22:02 AD-Unauthed-ldapsearch-sam-10.10.173.37.txt
+-rw-r--r-- 1 kali kali    0 Jan 16 22:02 AD-Unauthed-lookupsid-10.10.173.37.txt
+-rw-r--r-- 1 kali kali  165 Jan 16 22:02 AD-Unauthed-nxc-ldap-10.10.173.37.txt
+-rw-r--r-- 1 kali kali    0 Jan 16 22:02 AD-Unauthed-nxc-smb-10.10.173.37.txt
+-rw-r--r-- 1 kali kali   35 Jan 16 22:02 AD-Unauthed-rpcclient-querydispinfo-10.10.173.37.txt
+```
