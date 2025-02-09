@@ -31,14 +31,14 @@ def assign_ip_address_and_domain():
     return ip_address, domain
 
 def create_output_directory(ip_address):
-    directory_name = f"ad-unauhed-{ip_address}"
+    directory_name = f"ad-unauthed-{ip_address}"
     if not os.path.exists(directory_name):
         os.makedirs(directory_name)
     return directory_name
 
 def run_nxc_ldap_command(ip_address, output_dir):
     command = f"nxc ldap {ip_address}"
-    filename = os.path.join(output_dir, f"ad-unauhed-nxc-ldap-{ip_address}.txt")
+    filename = os.path.join(output_dir, f"ad-unauthed-nxc-ldap-{ip_address}.txt")
     output = run_command_and_get_output(command)
     save_output_to_file(output, filename)
     return output
@@ -46,7 +46,7 @@ def run_nxc_ldap_command(ip_address, output_dir):
 def run_lookupsid_command(ip_address, output_dir):
     command = f"lookupsid.py anonymous@{ip_address} -no-pass"
     print(f"\033[90mRunning command:\033[0m {command}")
-    filename = os.path.join(output_dir, f"ad-unauhed-lookupsid-{ip_address}.txt")
+    filename = os.path.join(output_dir, f"ad-unauthed-lookupsid-{ip_address}.txt")
     output = run_command_and_get_output(command)
     save_output_to_file(output, filename)
     extract_usernames(output, ip_address, output_dir)
@@ -64,7 +64,7 @@ def extract_usernames(output, ip_address, output_dir):
     matches = user_pattern.findall(output)
     if matches:
         usernames = '\n'.join(matches)
-        usernames_filename = os.path.join(output_dir, f"ad-unauhed-Users-{ip_address}.txt")
+        usernames_filename = os.path.join(output_dir, f"ad-unauthed-Users-{ip_address}.txt")
         with open(usernames_filename, 'w') as file:
             file.write(usernames)
 
@@ -99,9 +99,9 @@ def run_ldap_search_queries(ip_address, distinguished_name, output_dir):
     print(f"\033[90mRunning command:\033[0m {sam_query_command}")
     print(f"\033[90mRunning command:\033[0m {description_query_command}")
 
-    run_and_save_query_result(base_query_command, os.path.join(output_dir, f"ad-unauhed-ldapsearch-base-{ip_address}.txt"))
-    run_and_save_query_result(sam_query_command, os.path.join(output_dir, f"ad-unauhed-ldapsearch-sam-{ip_address}.txt"))
-    run_and_save_query_result(description_query_command, os.path.join(output_dir, f"ad-unauhed-ldapsearch-description-{ip_address}.txt"))
+    run_and_save_query_result(base_query_command, os.path.join(output_dir, f"ad-unauthed-ldapsearch-base-{ip_address}.txt"))
+    run_and_save_query_result(sam_query_command, os.path.join(output_dir, f"ad-unauthed-ldapsearch-sam-{ip_address}.txt"))
+    run_and_save_query_result(description_query_command, os.path.join(output_dir, f"ad-unauthed-ldapsearch-description-{ip_address}.txt"))
 
 def run_and_save_query_result(command, filename):
     output = run_command_and_get_output(command)
@@ -111,7 +111,7 @@ def run_rpcclient_command(ip_address, output_dir):
     command = f"rpcclient -W '' -c querydispinfo -U''%'' {ip_address}"
     print(f"\033[90mRunning command:\033[0m {command}")
     output = run_command_and_get_output(command)
-    save_output_to_file(output, os.path.join(output_dir, f"ad-unauhed-rpcclient-querydispinfo-{ip_address}.txt"))
+    save_output_to_file(output, os.path.join(output_dir, f"ad-unauthed-rpcclient-querydispinfo-{ip_address}.txt"))
 
 def run_nxc_user_enum(ip_address, output_dir):
     command = f"nxc smb {ip_address} -u anonymous -p '' --rid-brute 10000"
@@ -119,7 +119,7 @@ def run_nxc_user_enum(ip_address, output_dir):
     output = run_command_and_get_output(command)
     filtered_output = filter_sidtype_user(output)
     
-    filename = os.path.join(output_dir, f"ad-unauhed-nxc-smb-{ip_address}.txt")
+    filename = os.path.join(output_dir, f"ad-unauthed-nxc-smb-{ip_address}.txt")
     with open(filename, 'w') as file:
         file.write(filtered_output)
 
@@ -135,7 +135,7 @@ def extract_and_append_users(output, ip_address, output_dir):
     matches = user_pattern.findall(output)
     if matches:
         unique_users = set(matches)
-        filename = os.path.join(output_dir, f"ad-unauhed-Users-{ip_address}.txt")
+        filename = os.path.join(output_dir, f"ad-unauthed-Users-{ip_address}.txt")
         if os.path.exists(filename):
             with open(filename, "r") as users_file:
                 existing_users = set(line.strip() for line in users_file)
@@ -150,7 +150,7 @@ def run_enum4linux_command(ip_address, output_dir):
     command = f"enum4linux -A {ip_address} -u '' -p ''"
     print(f"\033[90mRunning command:\033[0m {command}")
     output = run_command_and_get_output(command)
-    save_output_to_file(output, os.path.join(output_dir, f"ad-unauhed-enum4linux-{ip_address}.txt"))
+    save_output_to_file(output, os.path.join(output_dir, f"ad-unauthed-enum4linux-{ip_address}.txt"))
 
 def run_kerbrute_with_wordlist(domain, ip_address, output_dir):
     wordlists = [
@@ -196,7 +196,7 @@ def run_kerbrute_with_wordlist(domain, ip_address, output_dir):
         print_error("Invalid choice. Exiting.")
         return
     wordlist_path = os.path.expanduser(f"~/.local/bin/wordlists/{selected_wordlist}")
-    output_filename = os.path.join(output_dir, f"ad-unauhed-kerbrute-{selected_wordlist_name}-{ip_address}.txt")
+    output_filename = os.path.join(output_dir, f"ad-unauthed-kerbrute-{selected_wordlist_name}-{ip_address}.txt")
 
     command = [
         "kerbrute",
@@ -231,7 +231,7 @@ def main():
     nxc_thread.start()
     nxc_thread.join()
 
-    with open(os.path.join(output_dir, f"ad-unauhed-nxc-ldap-{ip_address}.txt")) as nxc_file:
+    with open(os.path.join(output_dir, f"ad-unauthed-nxc-ldap-{ip_address}.txt")) as nxc_file:
         nxc_output = nxc_file.read()
     
     hostname, domain_from_nxc = extract_details_from_nxc_output(nxc_output)
@@ -276,7 +276,7 @@ def main():
         subprocess.run(kerbcommand, shell=True)
 
         old_filename = "kerb-users-01.txt"
-        new_filename = os.path.join(output_dir, f"ad-unauhed-kerbrute-users-{ip_address}.txt")
+        new_filename = os.path.join(output_dir, f"ad-unauthed-kerbrute-users-{ip_address}.txt")
         if os.path.exists(old_filename):
             os.rename(old_filename, new_filename)
         else:
