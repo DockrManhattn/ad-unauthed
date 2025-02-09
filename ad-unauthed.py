@@ -45,6 +45,7 @@ def run_nxc_ldap_command(ip_address, output_dir):
 
 def run_lookupsid_command(ip_address, output_dir):
     command = f"lookupsid.py anonymous@{ip_address} -no-pass"
+    print(f"\033[90mRunning command:\033[0m {command}")
     filename = os.path.join(output_dir, f"AD-Unauthed-lookupsid-{ip_address}.txt")
     output = run_command_and_get_output(command)
     save_output_to_file(output, filename)
@@ -94,6 +95,10 @@ def run_ldap_search_queries(ip_address, distinguished_name, output_dir):
     sam_query_command = f"{base_query_command} | grep sAMAccountName | awk -F: '{{ print $2 }}' | awk '{{ gsub(/ /,\" \"); print }}'"
     description_query_command = f"{base_query_command} | grep description"
 
+    print(f"\033[90mRunning command:\033[0m {base_query_command}")
+    print(f"\033[90mRunning command:\033[0m {sam_query_command}")
+    print(f"\033[90mRunning command:\033[0m {description_query_command}")
+
     run_and_save_query_result(base_query_command, os.path.join(output_dir, f"AD-Unauthed-ldapsearch-base-{ip_address}.txt"))
     run_and_save_query_result(sam_query_command, os.path.join(output_dir, f"AD-Unauthed-ldapsearch-sam-{ip_address}.txt"))
     run_and_save_query_result(description_query_command, os.path.join(output_dir, f"AD-Unauthed-ldapsearch-description-{ip_address}.txt"))
@@ -104,11 +109,13 @@ def run_and_save_query_result(command, filename):
 
 def run_rpcclient_command(ip_address, output_dir):
     command = f"rpcclient -W '' -c querydispinfo -U''%'' {ip_address}"
+    print(f"\033[90mRunning command:\033[0m {command}")
     output = run_command_and_get_output(command)
     save_output_to_file(output, os.path.join(output_dir, f"AD-Unauthed-rpcclient-querydispinfo-{ip_address}.txt"))
 
 def run_nxc_user_enum(ip_address, output_dir):
     command = f"nxc smb {ip_address} -u anonymous -p '' --rid-brute 10000"
+    print(f"\033[90mRunning command:\033[0m {command}")
     output = run_command_and_get_output(command)
     filtered_output = filter_sidtype_user(output)
     
@@ -141,6 +148,7 @@ def extract_and_append_users(output, ip_address, output_dir):
 
 def run_enum4linux_command(ip_address, output_dir):
     command = f"enum4linux -A {ip_address} -u '' -p ''"
+    print(f"\033[90mRunning command:\033[0m {command}")
     output = run_command_and_get_output(command)
     save_output_to_file(output, os.path.join(output_dir, f"AD-Unauthed-enum4linux-{ip_address}.txt"))
 
@@ -199,6 +207,8 @@ def run_kerbrute_with_wordlist(domain, ip_address, output_dir):
         "-t", "100"
     ]
 
+    print(f"\033[90mRunning command:\033[0m {command}")
+    
     with open(output_filename, "w") as output_file:
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         for line in process.stdout:
@@ -259,7 +269,10 @@ def main():
     response = input().strip().lower()
     if response in ['y', 'yes']:
         kerbusers_path = os.path.expanduser("~/.local/bin/kerbusers.py")
-        subprocess.run(["python3", kerbusers_path, "-d", domain, "-dc-ip", ip_address])
+        kerbcommand = f"python3 /home/kali/scripts/kerbrute-helper/kerbrute-helper.py -d {domain} -dc-ip {ip_address}"
+        print(f"\033[90mRunning command:\033[0m {kerbcommand}")
+
+        subprocess.run(kerbcommand, shell=True)
 
         old_filename = "kerb-users-01.txt"
         new_filename = os.path.join(output_dir, f"AD-Unauthed-kerbrute-users-{ip_address}.txt")
