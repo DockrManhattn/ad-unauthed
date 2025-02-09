@@ -207,7 +207,8 @@ def run_kerbrute_with_wordlist(domain, ip_address, output_dir):
         "-t", "100"
     ]
 
-    print(f"\033[90mRunning command:\033[0m {command}")
+    command_str = ' '.join(command)
+    print(f"\033[90mRunning command:\033[0m {command_str}")
     
     with open(output_filename, "w") as output_file:
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
