@@ -270,7 +270,7 @@ def main():
     response = input().strip().lower()
     if response in ['y', 'yes']:
         kerbusers_path = os.path.expanduser("~/.local/bin/kerbusers.py")
-        kerbcommand = f"python3 /home/kali/scripts/kerbrute-helper/kerbrute-helper.py -d {domain} -dc-ip {ip_address}"
+        kerbcommand = f"python3 {kerbusers_path} -d {domain} -dc-ip {ip_address}"
         print(f"\033[90mRunning command:\033[0m {kerbcommand}")
 
         subprocess.run(kerbcommand, shell=True)
