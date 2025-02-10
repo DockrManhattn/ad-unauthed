@@ -64,7 +64,7 @@ def extract_usernames(output, ip_address, output_dir):
     matches = user_pattern.findall(output)
     if matches:
         usernames = '\n'.join(matches)
-        usernames_filename = os.path.join(output_dir, f"ad-unauthed-Users-{ip_address}.txt")
+        usernames_filename = os.path.join(output_dir, f"ad-unauthed-users-{ip_address}.txt")
         with open(usernames_filename, 'w') as file:
             file.write(usernames)
 
@@ -135,7 +135,7 @@ def extract_and_append_users(output, ip_address, output_dir):
     matches = user_pattern.findall(output)
     if matches:
         unique_users = set(matches)
-        filename = os.path.join(output_dir, f"ad-unauthed-Users-{ip_address}.txt")
+        filename = os.path.join(output_dir, f"ad-unauthed-users-{ip_address}.txt")
         if os.path.exists(filename):
             with open(filename, "r") as users_file:
                 existing_users = set(line.strip() for line in users_file)
