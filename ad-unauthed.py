@@ -152,6 +152,17 @@ def run_enum4linux_command(ip_address, output_dir):
     output = run_command_and_get_output(command)
     save_output_to_file(output, os.path.join(output_dir, f"ad-unauthed-enum4linux-{ip_address}.txt"))
 
+def display_users_file(ip_address, output_dir):
+    filename = os.path.join(output_dir, f"ad-unauthed-users-{ip_address}.txt")
+    if os.path.exists(filename):
+        print_informational(f"Displaying contents of {filename}:")
+        with open(filename, "r") as users_file:
+            for line in users_file:
+                print(line.strip())
+    else:
+        print_error(f"Users file {filename} not found.")
+
+
 def run_kerbrute_with_wordlist(domain, ip_address, output_dir):
     wordlists = [
         "jjsmith",
@@ -265,6 +276,8 @@ def main():
     rpcclient_thread.join()
     nxc_user_enum_thread.join()
     enum4linux_thread.join()
+
+    display_users_file(ip_address, output_dir)
 
     print_informational("Do you want to run kerbusers? (Y/N): ")
     response = input().strip().lower()
